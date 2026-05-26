@@ -1,0 +1,47 @@
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="dashboard">
+    <div>
+        <h1>Private dashboard</h1>
+        <p class="muted">Notes shown here belong only to the signed-in user.</p>
+
+        <form asp-action="AddNote" method="post" class="note-form" novalidate>
+            <div asp-validation-summary="ModelOnly" class="validation"></div>
+
+            <label asp-for="NewNote.Title"></label>
+            <input asp-for="NewNote.Title" />
+            <span asp-validation-for="NewNote.Title" class="validation"></span>
+
+            <label asp-for="NewNote.Content"></label>
+            <textarea asp-for="NewNote.Content" rows="6"></textarea>
+            <span asp-validation-for="NewNote.Content" class="validation"></span>
+
+            <button type="submit">Add note</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Your notes</h2>
+        @if (Model.Notes.Count == 0)
+        {
+            <p class="empty">No private notes yet.</p>
+        }
+        else
+        {
+            <div class="notes">
+                @foreach (var note in Model.Notes)
+                {
+                    <article class="note">
+                        <h3>@note.Title</h3>
+                        <time datetime="@note.CreatedAt.ToString("O")">@note.CreatedAt.ToLocalTime().ToString("g")</time>
+                        <p>@note.Content</p>
+                    </article>
+                }
+            </div>
+        }
+    </div>
+</section>

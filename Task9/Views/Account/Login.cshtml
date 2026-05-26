@@ -1,0 +1,24 @@
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+    var returnUrl = ViewData["ReturnUrl"] as string;
+}
+
+<section class="auth-panel">
+    <h1>Log in</h1>
+    <form asp-action="Login" method="post" asp-route-returnUrl="@returnUrl" novalidate>
+        <div asp-validation-summary="ModelOnly" class="validation"></div>
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email" autocomplete="email" />
+        <span asp-validation-for="Email" class="validation"></span>
+
+        <label asp-for="Password"></label>
+        <input asp-for="Password" autocomplete="current-password" />
+        <span asp-validation-for="Password" class="validation"></span>
+
+        <button type="submit">Log in</button>
+    </form>
+    <p class="muted">No account yet? <a asp-action="Register">Create one</a>.</p>
+</section>

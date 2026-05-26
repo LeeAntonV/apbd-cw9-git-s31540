@@ -1,0 +1,30 @@
+@model IReadOnlyList<AppUser>
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<section class="panel wide">
+    <h1>Admin page</h1>
+    <p class="muted">This page is protected with role-based authorization.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>@user.CreatedAt.ToLocalTime().ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
